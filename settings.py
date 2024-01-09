@@ -17,3 +17,4 @@ def newTurtle() -> trtl.Turtle:
 def init(first):
     global screenInfo
     screenInfo = ScreenInfo(first)
+    

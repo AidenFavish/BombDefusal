@@ -1,4 +1,5 @@
 import settings
+import turtle as trtl
 
 def menu():
     print("hello")
@@ -6,3 +7,4 @@ def menu():
 
 def smth():
     print("world")
+    
