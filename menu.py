@@ -1,10 +1,33 @@
 import settings
 import turtle as trtl
 
-def menu():
-    print("hello")
-    settings.screenInfo.currScreen = smth
+gcard = None
 
-def smth():
-    print("world")
+def menu():
+    global gcard
     
+    # Draws menu background
+    card = settings.newTurtle()
+    gcard = card # create global alias
+    card.pensize(0)
+    card.fillcolor(0.05, 0.05, 0.25)
+    card.begin_fill()
+    settings.drawSquare(card, -250, -250, 500, 500)
+    card.end_fill()
+
+    # Draw title
+    card.goto(-185, 150)
+    card.pencolor("white")
+    card.write("Lazy Bomb Defusal Game", font=("Arial", 30, "bold"))
+
+    # Draw options
+    card.goto(-150, 25)
+    card.pencolor("green")
+    card.write("[1] PLAY", font=("Arial", 20, "bold"))
+    card.goto(-150, -25)
+    card.pencolor("red")
+    card.write("[2] QUIT", font=("Arial", 20, "bold"))
+
+def cleanup():
+    global gcard
+    gcard.clear()

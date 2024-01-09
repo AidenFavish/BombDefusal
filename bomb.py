@@ -1,0 +1,4 @@
+
+
+def bomb():
+    print("bomb")
