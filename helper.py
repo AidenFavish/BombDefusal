@@ -18,5 +18,6 @@ def play():
         runCurrScreen()
 
 def quitGame():
-    exit()
+    if settings.screenInfo.currScreen == menu.menu:
+        exit()
     
