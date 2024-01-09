@@ -8,6 +8,7 @@ def menu():
     
     # Draws menu background
     card = settings.newTurtle()
+    card.hideturtle()
     gcard = card # create global alias
     card.pensize(0)
     card.fillcolor(0.05, 0.05, 0.25)

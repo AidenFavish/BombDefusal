@@ -2,12 +2,12 @@ import turtle as trtl
 
 class ScreenInfo():
     # Module that stores important screen changing info and can be passed by reference
-    def __init__(self, first, wn):
+    def __init__(self, first, wn: trtl.Screen):
         self.isPlaying = True
         self.currScreen = first
         self.wn = wn
 
-def init(first, wn):
+def init(first, wn: trtl.Screen):
     global screenInfo
     screenInfo = ScreenInfo(first, wn)
     first()
@@ -21,7 +21,6 @@ def newTurtle(shape=None) -> trtl.Turtle:
     t.speed(0)
     t.pensize(5)
     t.penup()
-    t.hideturtle()
     return t
 
 def drawSquare(painter: trtl.Turtle, bottomLeftX, bottomLeftY, width, height):
