@@ -2,6 +2,7 @@ import turtle as trtl
 import random
 import settings
 from time import sleep
+import summary
 
 col = None  # entire solution column that was randomly selected
 options = None  # randomized 4 symbols chosen
@@ -44,12 +45,13 @@ def init():
 
 def bomb(data=None):
     # Pre-setup
-    if data is not None:
-        global chances, difficulty, puzzlesLeft, timeLeft
+    if data is not None:  # Game presets
+        global chances, difficulty, puzzlesLeft, timeLeft, timerSpeed
         chances = data[0]
         difficulty = data[1]
         puzzlesLeft = data[2]
         timeLeft = data[3]
+        timerSpeed = 1
 
     init()  # Setup game instance
 
@@ -123,8 +125,7 @@ def onButtonClick(x, y, num):
 
         if len(ordered) == 0:  # Check that all buttons have been pressed
             defused()
-
-    else:
+    elif options[num] in ordered:  # Prevents clicking the same button twice
         wrong()
 
 def wrong():
@@ -144,22 +145,26 @@ def wrong():
     if chances == 0:
         explode()
 
-def explode():  # Too many failed attempts
-    global timeLeft
+def explode():  # Too many failed attempts or timer ran out
+    global timeLeft, difficulty, chances, timeLeft, timerSpeed
     timerSpeed = 0
-    print("explode")
+    settings.screenInfo.currScreen = summary.summarize
+    cleanup()
+    summary.summarize("EXPLODED", difficulty, chances, timeLeft)
 
 def defused():  # Correct order fully entered
-    global pl, puzzlesLeft, timerSpeed
+    global pl, puzzlesLeft, timerSpeed, difficulty, chances, timeLeft
 
     # Update puzzles left
     puzzlesLeft -= 1
     pl.clear()
     pl.write(f"Puzzles left: {puzzlesLeft}", font=("Arial", 20, "normal"))
 
-    if puzzlesLeft <= 0:
+    if puzzlesLeft <= 0:  # Mission complete
         timerSpeed = 0  # get timer to stop ticking
-        print("Complete")
+        settings.screenInfo.currScreen = summary.summarize
+        cleanup()
+        summary.summarize("DEFUSED", difficulty, chances, timeLeft)
     else:  # Start next puzzle
         cleanup()
         bomb()
@@ -178,11 +183,12 @@ def handleCountdown():
     wn = settings.screenInfo.wn  # Get window
 
     if timerSpeed == 0:  # timerSpeed will be 0 if the user finishes the game early
+        timerTurtle.clear()
         return
 
     timerTurtle.clear()
     if timeLeft <= 0:  # If the user runs out of time
-        timerTurtle.write(f"TIME LEFT: 0 s", font=("Arial", 20, "bold"))
+        timeLeft = 0
         explode()
     else:
         timerTurtle.write(f"TIME LEFT: {timeLeft} s", font=("Arial", 20, "bold"))
