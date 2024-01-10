@@ -96,14 +96,15 @@ def bomb(data=None):
     clickedDots[2].goto(-62.5, -62.5 + offset)
     clickedDots[3].goto(62.5, -62.5 + offset)
 
-    # Set up timer turtle
-    timerTurtle = settings.newTurtle()
-    timerTurtle.hideturtle()
-    timerTurtle.up()
-    timerTurtle.goto(150, 200)
-    timerTurtle.color("red")
-    handleCountdown()
-    turtleBin.append(timerTurtle)
+    if data is not None:  # Only run at first call
+        # Set up timer turtle
+        timerTurtle = settings.newTurtle()
+        timerTurtle.hideturtle()
+        timerTurtle.up()
+        timerTurtle.goto(150, 200)
+        timerTurtle.color("red")
+        handleCountdown()
+        turtleBin.append(timerTurtle)
 
     # Puzzles left
     pl = settings.newTurtle()
@@ -144,6 +145,8 @@ def wrong():
         explode()
 
 def explode():  # Too many failed attempts
+    global timeLeft
+    timerSpeed = 0
     print("explode")
 
 def defused():  # Correct order fully entered

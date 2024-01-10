@@ -24,10 +24,16 @@ def menu():
     # Draw options
     card.goto(-150, 25)
     card.pencolor("green")
-    card.write("[1] PLAY", font=("Arial", 20, "bold"))
+    card.write("[1] EASY", font=("Arial", 20, "bold"))
     card.goto(-150, -25)
+    card.pencolor("orange")
+    card.write("[2] MEDIUM", font=("Arial", 20, "bold"))
+    card.goto(-150, -75)
     card.pencolor("red")
-    card.write("[2] QUIT", font=("Arial", 20, "bold"))
+    card.write("[3] HARD", font=("Arial", 20, "bold"))
+    card.goto(-150, -175)
+    card.pencolor("white")
+    card.write("[9] QUIT", font=("Arial", 20, "bold"))
 
 def cleanup():
     global gcard
